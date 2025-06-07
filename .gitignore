@@ -1,0 +1,88 @@
+# Arquivos de ambiente
+.env
+.env.*
+
+# Diretórios de logs
+logs/
+*.log
+
+# Diretórios de tokens e backups
+tokens/
+backups/
+*.token
+*.backup
+
+# Arquivos de configuração local
+config.yaml
+config.local.yaml
+
+# Cache Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Ambientes virtuais
+venv/
+env/
+ENV/
+.venv/
+.env/
+.ENV/
+
+# IDEs e editores
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Arquivos temporários
+*.tmp
+*.temp
+*.bak
+*.swp
+*~
+
+# Arquivos de debug
+debug.log
+*.debug
+
+# Arquivos de teste
+.coverage
+htmlcov/
+.pytest_cache/
+.tox/
+.nox/
+coverage.xml
+*.cover
+.hypothesis/
+
+# Arquivos de distribuição
+*.tar.gz
+*.zip
+*.rar
+*.7z
+
+# Arquivos específicos do projeto
+proxy_list.txt
+token_cache.json
+session.json 
