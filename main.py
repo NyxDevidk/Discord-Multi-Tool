@@ -394,9 +394,14 @@ class DiscordMultiTool:
         self.operation_queue.start()
         
         # Inicializa proxies se configurado
-        if self.config.get('requests.use_proxies'):
-            asyncio.run(self.proxy_manager.fetch_proxies())
-            asyncio.run(self.proxy_manager.validate_proxies())
+        if self.config.get('requests.use_proxies') and not self.proxy_manager.proxies:
+            try:
+                asyncio.run(self.proxy_manager.fetch_proxies())
+                asyncio.run(self.proxy_manager.validate_proxies())
+            except Exception as e:
+                self.logger.error(f"Erro ao inicializar proxies: {str(e)}")
+                self.config.config['requests']['use_proxies'] = False
+                self.config.save_config(self.config.config)
 
     def select_token(self):
         """Permite selecionar um token para usar"""

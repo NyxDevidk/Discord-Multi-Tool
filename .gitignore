@@ -12,6 +12,12 @@ backups/
 *.token
 *.backup
 
+# Arquivos de autenticação
+key
+auth.json
+*.key
+*.auth
+
 # Arquivos de configuração local
 config.yaml
 config.local.yaml
