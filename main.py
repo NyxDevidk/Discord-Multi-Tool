@@ -470,11 +470,28 @@ class DMS:
         
         banner = f"""
 {primary}╔════════════════════════════════════════════════════════════════════════════╗
-║                        DMS v2.0                        ║
 ║                                                                      ║
-║  {success}Desenvolvido por: Claude AI{primary}                                    ║
-║  {warning}Status: Online{primary}                                               ║
-║  {success}Token: {'✓' if self.token else '✗'}{primary}                                                      ║
+║  {success}██╗  ██╗███╗   ██╗██╗  ██╗    ██████╗ ███████╗██╗   ██╗{primary}  ║
+║  {success}██║  ██║████╗  ██║╚██╗██╔╝    ██╔══██╗██╔════╝██║   ██║{primary}  ║
+║  {success}███████║██╔██╗ ██║ ╚███╔╝     ██║  ██║█████╗  ██║   ██║{primary}  ║
+║  {success}██╔══██║██║╚██╗██║ ██╔██╗     ██║  ██║██╔══╝  ╚██╗ ██╔╝{primary}  ║
+║  {success}██║  ██║██║ ╚████║██╔╝ ██╗    ██████╔╝███████╗ ╚████╔╝ {primary}  ║
+║  {success}╚═╝  ╚═╝╚═╝  ╚═══╝╚═╝  ╚═╝    ╚═════╝ ╚══════╝  ╚═══╝  {primary}  ║
+║                                                                      ║
+║  {warning}╔════════════════════════════════════════════════════════════════════╗{primary}  ║
+║  {warning}║                      Discord Management Suite                      ║{primary}  ║
+║  {warning}║                           Versão 2.0                              ║{primary}  ║
+║  {warning}╚════════════════════════════════════════════════════════════════════╝{primary}  ║
+║                                                                      ║
+║  {success}╔════════════════════════════════════════════════════════════════════╗{primary}  ║
+║  {success}║                         Status do Sistema                          ║{primary}  ║
+║  {success}║                                                                  ║{primary}  ║
+║  {success}║  Token: {'✓' if self.token else '✗'}  |  Proxies: {'✓' if self.config.get('requests.use_proxies') else '✗'}  |  Status: Online  ║{primary}  ║
+║  {success}║                                                                  ║{primary}  ║
+║  {success}║  Desenvolvido por: Nyx Dev                                      ║{primary}  ║
+║  {success}║  Data: {datetime.now().strftime('%d/%m/%Y %H:%M:%S')}                    ║{primary}  ║
+║  {success}╚════════════════════════════════════════════════════════════════════╝{primary}  ║
+║                                                                      ║
 ╚════════════════════════════════════════════════════════════════════════════╝{Fore.RESET}
         """
         if self.config.get('interface.show_animations'):
@@ -489,6 +506,7 @@ class DMS:
         primary = getattr(Fore, colors.get('primary', 'cyan').upper())
         success = getattr(Fore, colors.get('success', 'green').upper())
         info = getattr(Fore, colors.get('info', 'magenta').upper())
+        warning = getattr(Fore, colors.get('warning', 'yellow').upper())
         
         menu = f"""
 {primary}╔════════════════════════════════════════════════════════════════════════════╗
@@ -501,15 +519,26 @@ class DMS:
 {success}[4]  Token Leaver      {info}Sai de servidores
 {success}[5]  Token Nuker       {info}Nuke em servidores
 {success}[6]  Token Spammer     {info}Envia mensagens em massa
+
 {success}[7]  HypeSquad        {info}Altera HypeSquad House
 {success}[8]  Bio Changer      {info}Altera a bio
 {success}[9]  Avatar Changer   {info}Altera o avatar
 {success}[10] Username Changer {info}Altera o username
+
 {success}[11] Alterar Token    {info}Muda o token atual
 {success}[12] Limpar Token     {info}Remove o token salvo
 {success}[13] Backup Token     {info}Cria backup do token
 {success}[14] Configurações    {info}Configura o programa
+
 {success}[0]  Sair            {info}Encerra o programa{Fore.RESET}
+
+{primary}╔════════════════════════════════════════════════════════════════════════════╗
+║                            Informações                              ║
+║                                                                      ║
+║  {success}Token Atual: {self.token[:20] + '...' if self.token else 'Nenhum'}{primary}                                    ║
+║  {warning}Proxies: {'Ativos' if self.config.get('requests.use_proxies') else 'Inativos'}{primary}                                               ║
+║  {info}Última Atualização: {datetime.now().strftime('%H:%M:%S')}{primary}                                    ║
+╚════════════════════════════════════════════════════════════════════════════╝{Fore.RESET}
         """
         if self.config.get('interface.show_animations'):
             print_menu_animated(menu)
