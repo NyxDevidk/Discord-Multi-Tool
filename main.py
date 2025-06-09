@@ -341,7 +341,7 @@ class ThemeManager:
         """Lista todos os temas disponíveis"""
         return list(self.themes.keys())
 
-class DiscordMultiTool:
+class DMS:
     def validate_token(self, token):
         """Valida se o token está no formato correto e é válido"""
         if not token:
@@ -470,7 +470,7 @@ class DiscordMultiTool:
         
         banner = f"""
 {primary}╔════════════════════════════════════════════════════════════════════════════╗
-║                        Discord Multi Tool v2.0                        ║
+║                        DMS v2.0                        ║
 ║                                                                      ║
 ║  {success}Desenvolvido por: Claude AI{primary}                                    ║
 ║  {warning}Status: Online{primary}                                               ║
@@ -1113,5 +1113,5 @@ def print_menu_animated(menu):
             print()
 
 if __name__ == "__main__":
-    tool = DiscordMultiTool()
+    tool = DMS()
     tool.run() 

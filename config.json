@@ -1,0 +1,30 @@
+{
+    "app_name": "DMS",
+    "version": "2.0",
+    "interface": {
+        "show_progress": true,
+        "show_animations": true,
+        "colors": {
+            "primary": "cyan",
+            "success": "green",
+            "error": "red",
+            "warning": "yellow",
+            "info": "magenta"
+        }
+    },
+    "requests": {
+        "timeout": 30,
+        "max_retries": 3,
+        "retry_delay": 1,
+        "use_proxies": false
+    },
+    "security": {
+        "encrypt_tokens": true,
+        "backup_interval": 24
+    },
+    "logging": {
+        "level": "INFO",
+        "max_size": 10485760,
+        "backup_count": 5
+    }
+} 

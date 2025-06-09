@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="200" height="50" viewBox="0 0 200 50" xmlns="http://www.w3.org/2000/svg">
+    <!-- Ícone Discord -->
+    <g transform="translate(0, 0)">
+        <path d="M20 0C8.954 0 0 8.954 0 20c0 8.954 5.5 16.5 13.2 19.5l-1.2 4.5h6l1.2-4.5C19.5 36.5 20 36.5 20 36.5c8.954 0 16-7.046 16-16S28.954 0 20 0zm-2 15c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm8 0c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2z" fill="#5865F2"/>
+    </g>
+    
+    <!-- Texto "DMS" -->
+    <g transform="translate(45, 35)">
+        <text font-family="Poppins, sans-serif" font-size="28" font-weight="700" fill="#FFFFFF">
+            DMS
+        </text>
+    </g>
+    
+    <!-- Texto "Discord Management Suite" -->
+    <g transform="translate(45, 15)">
+        <text font-family="Poppins, sans-serif" font-size="12" font-weight="400" fill="#7289DA">
+            Discord Management Suite
+        </text>
+    </g>
+</svg> 
