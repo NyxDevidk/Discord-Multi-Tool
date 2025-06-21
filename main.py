@@ -495,7 +495,7 @@ class DMS:
             f"{success}{' Status do Sistema '.center(width, '═')}{primary}",
             f"{success}{'═'*width}{primary}",
             pad(f"Token: {'✓' if self.token else '✗'}  |  Proxies: {'✓' if self.config.get('requests.use_proxies') else '✗'}  |  Status: Online"),
-            pad(f"Desenvolvido por: NYX DEV"),
+            pad(f"Desenvolvido por: NYX DEV (@nyxthegoat)"),
             pad(f"Data: {datetime.now().strftime('%d/%m/%Y %H:%M:%S')}") ,
             f"{success}{'═'*width}{primary}",
             ""
