@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Offline - DMS</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .offline-container {
+            max-width: 500px;
+            background: rgba(30, 30, 30, 0.9);
+            padding: 3rem 2rem;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 16px 32px rgba(0, 0, 0, 0.4);
+        }
+
+        .offline-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #5865f2 0%, #7289da 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 2rem;
+            font-size: 2rem;
+            color: white;
+        }
+
+        h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #5865f2 0%, #00d4ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        p {
+            color: #b9bbbe;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+        }
+
+        .retry-button {
+            background: linear-gradient(135deg, #5865f2 0%, #7289da 100%);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .retry-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(88, 101, 242, 0.3);
+        }
+
+        .offline-features {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .offline-features h3 {
+            color: #ffffff;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .feature-list {
+            list-style: none;
+            text-align: left;
+        }
+
+        .feature-list li {
+            color: #b9bbbe;
+            margin-bottom: 0.5rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .feature-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #43b581;
+            font-weight: bold;
+        }
+
+        .connection-status {
+            margin-top: 1rem;
+            padding: 0.5rem 1rem;
+            background: rgba(247, 71, 71, 0.1);
+            border: 1px solid rgba(247, 71, 71, 0.3);
+            border-radius: 8px;
+            color: #f04747;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 480px) {
+            .offline-container {
+                padding: 2rem 1rem;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            .offline-icon {
+                width: 60px;
+                height: 60px;
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="offline-container">
+        <div class="offline-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M1 1l22 22M16.72 11.06A10.94 10.94 0 0 1 19 12.55M5 12.55a10.94 10.94 0 0 1 5.17-2.39M10.71 5.05A16 16 0 0 1 22.58 9M1.42 9a15.91 15.91 0 0 1 4.7-2.88M8.53 16.11a6 6 0 0 1 6.95 0M12 20h.01"/>
+            </svg>
+        </div>
+        
+        <h1>Você está offline</h1>
+        
+        <p>
+            Parece que você perdeu a conexão com a internet. 
+            Não se preocupe, algumas funcionalidades do DMS ainda estão disponíveis offline.
+        </p>
+        
+        <button class="retry-button" onclick="window.location.reload()">
+            Tentar Novamente
+        </button>
+        
+        <div class="offline-features">
+            <h3>Funcionalidades Disponíveis Offline:</h3>
+            <ul class="feature-list">
+                <li>Visualização da documentação salva</li>
+                <li>Configurações locais</li>
+                <li>Histórico de downloads</li>
+                <li>Informações do projeto</li>
+            </ul>
+        </div>
+        
+        <div class="connection-status">
+            <strong>Status:</strong> Sem conexão com a internet
+        </div>
+    </div>
+
+    <script>
+        // Verifica periodicamente se a conexão foi restaurada
+        function checkConnection() {
+            if (navigator.onLine) {
+                window.location.reload();
+            }
+        }
+
+        // Verifica a cada 5 segundos
+        setInterval(checkConnection, 5000);
+
+        // Listener para quando a conexão for restaurada
+        window.addEventListener('online', () => {
+            window.location.reload();
+        });
+
+        // Atualiza o status da conexão
+        function updateConnectionStatus() {
+            const statusElement = document.querySelector('.connection-status');
+            if (navigator.onLine) {
+                statusElement.innerHTML = '<strong>Status:</strong> Conexão restaurada! Redirecionando...';
+                statusElement.style.background = 'rgba(67, 181, 129, 0.1)';
+                statusElement.style.borderColor = 'rgba(67, 181, 129, 0.3)';
+                statusElement.style.color = '#43b581';
+            } else {
+                statusElement.innerHTML = '<strong>Status:</strong> Sem conexão com a internet';
+                statusElement.style.background = 'rgba(247, 71, 71, 0.1)';
+                statusElement.style.borderColor = 'rgba(247, 71, 71, 0.3)';
+                statusElement.style.color = '#f04747';
+            }
+        }
+
+        // Atualiza o status inicial
+        updateConnectionStatus();
+
+        // Listener para mudanças na conectividade
+        window.addEventListener('online', updateConnectionStatus);
+        window.addEventListener('offline', updateConnectionStatus);
+
+        // Adiciona animação ao botão
+        document.querySelector('.retry-button').addEventListener('click', function() {
+            this.innerHTML = 'Verificando...';
+            this.style.opacity = '0.7';
+            this.disabled = true;
+            
+            setTimeout(() => {
+                this.innerHTML = 'Tentar Novamente';
+                this.style.opacity = '1';
+                this.disabled = false;
+            }, 2000);
+        });
+    </script>
+</body>
+</html> 

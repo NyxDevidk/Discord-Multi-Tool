@@ -1,108 +1,340 @@
-# Site da Discord Multi Tool
+# DMS Website - Discord Management Suite
 
-Este é o site oficial da Discord Multi Tool, uma ferramenta multifuncional para gerenciamento de contas do Discord.
+## 📋 Visão Geral
 
-## 🎨 Design
+O site oficial do DMS (Discord Management Suite) foi completamente redesenhado com um visual moderno, responsivo e funcional. Esta é a versão 2.0 do site, desenvolvida com as melhores práticas de web design e experiência do usuário.
 
-O site foi desenvolvido com um design moderno e responsivo, utilizando:
+## ✨ Novas Funcionalidades
 
-- HTML5
-- CSS3 (com variáveis CSS e Flexbox/Grid)
-- JavaScript (ES6+)
-- Font Awesome para ícones
-- Google Fonts (Poppins)
+### 🎨 Design Moderno
+- **Interface Dark Mode**: Design escuro elegante com gradientes modernos
+- **Tipografia Inter**: Fonte moderna e legível em todos os dispositivos
+- **Sistema de Cores**: Paleta de cores consistente com variáveis CSS
+- **Animações Suaves**: Transições e animações fluidas em toda a interface
 
-## 🚀 Funcionalidades
+### 📱 Responsividade Completa
+- **Mobile-First**: Design otimizado para dispositivos móveis
+- **Breakpoints Inteligentes**: Adaptação perfeita para tablets e desktops
+- **Menu Mobile**: Navegação hambúrguer com overlay elegante
+- **Touch-Friendly**: Elementos otimizados para toque
 
-- Design responsivo para todos os dispositivos
-- Menu mobile com animação
-- Scroll suave
-- Animações de elementos ao scroll
-- Tema claro/escuro
-- Efeitos de hover
-- Otimizado para performance
+### 🚀 Performance Otimizada
+- **Lazy Loading**: Carregamento inteligente de elementos
+- **Intersection Observer**: Animações baseadas em scroll
+- **CSS Otimizado**: Estilos eficientes e organizados
+- **JavaScript Modular**: Código estruturado e reutilizável
 
-## 📦 Estrutura de Arquivos
+### 🎯 Experiência do Usuário
+- **Navegação Suave**: Scroll suave entre seções
+- **Feedback Visual**: Estados de hover e loading
+- **Notificações**: Sistema de notificações elegante
+- **Atalhos de Teclado**: Navegação por teclado aprimorada
+
+## 🏗️ Estrutura do Projeto
 
 ```
 web/
 ├── index.html          # Página principal
 ├── css/
-│   └── style.css      # Estilos do site
+│   └── style.css       # Estilos principais
 ├── js/
-│   └── main.js        # JavaScript
-└── images/            # Imagens do site
+│   └── main.js         # JavaScript principal
+├── images/
+│   ├── logo.svg        # Logo do DMS
+│   ├── favicon.svg     # Favicon
+│   └── .gitkeep        # Manter pasta
+├── README.md           # Este arquivo
+└── BRAND.md           # Guia de marca
 ```
 
-## 🛠️ Instalação
+## 🎨 Sistema de Design
 
-1. Clone o repositório:
-```bash
-git clone https://github.com/seu-usuario/discord-multi-tool.git
-cd discord-multi-tool/web
+### Cores Principais
+```css
+--primary-color: #5865f2      /* Azul Discord */
+--accent-color: #00d4ff       /* Azul claro */
+--success: #43b581            /* Verde */
+--warning: #faa61a            /* Amarelo */
+--error: #f04747              /* Vermelho */
 ```
 
-2. Abra o arquivo `index.html` em seu navegador ou use um servidor local:
+### Tipografia
+- **Fonte Principal**: Inter (Google Fonts)
+- **Tamanhos**: Sistema de escala consistente
+- **Pesos**: 300, 400, 500, 600, 700, 800
+
+### Espaçamentos
+- **Sistema de Grid**: 8px base unit
+- **Margens**: Consistentes em todo o site
+- **Padding**: Responsivo e proporcional
+
+## 🚀 Como Usar
+
+### 1. Instalação Local
 ```bash
-# Usando Python
+# Clone o repositório
+git clone https://github.com/NyxDevidk/Discord-Multi-Tool.git
+
+# Navegue para a pasta web
+cd Discord-Multi-Tool/web
+
+# Abra o index.html em um servidor local
 python -m http.server 8000
-
-# Usando Node.js
-npx serve
+# ou
+npx serve .
 ```
 
-## 🎯 Personalização
+### 2. Desenvolvimento
+```bash
+# Para desenvolvimento, use um servidor local
+# Isso evita problemas de CORS e permite hot reload
+```
 
-### Cores
-As cores podem ser facilmente alteradas editando as variáveis CSS no arquivo `style.css`:
+### 3. Personalização
+- **Cores**: Edite as variáveis CSS em `css/style.css`
+- **Conteúdo**: Modifique o HTML em `index.html`
+- **Funcionalidades**: Adicione JavaScript em `js/main.js`
 
+## 📱 Seções do Site
+
+### 1. Header/Navegação
+- Logo animado
+- Menu responsivo
+- Efeito de scroll
+- Navegação suave
+
+### 2. Hero Section
+- Título principal com gradiente
+- Descrição clara
+- Botões de call-to-action
+- Terminal animado
+- Estatísticas em tempo real
+
+### 3. Recursos (Features)
+- 6 cards principais
+- Ícones animados
+- Listas de funcionalidades
+- Efeitos hover
+
+### 4. Download
+- 3 opções de download
+- Card destacado (recomendado)
+- Requisitos do sistema
+- Botões com loading state
+
+### 5. Documentação
+- 4 seções principais
+- Links para guias
+- Ícones descritivos
+- Animações suaves
+
+### 6. Sobre
+- Informações do projeto
+- Perfil do desenvolvedor
+- Estatísticas animadas
+- Links sociais
+
+### 7. Footer
+- Links organizados
+- Informações de copyright
+- Redes sociais
+- Estrutura responsiva
+
+## 🛠️ Funcionalidades JavaScript
+
+### Classes Principais
+
+#### DMSWebsite
+- Gerenciamento principal do site
+- Event listeners
+- Animações
+- Interações
+
+#### PerformanceMonitor
+- Monitoramento de performance
+- Métricas de carregamento
+- Logs de eventos
+
+#### Analytics
+- Rastreamento de eventos
+- Métricas de usuário
+- Dados de navegação
+
+#### ErrorHandler
+- Tratamento de erros
+- Logs de debug
+- Relatórios de erro
+
+### Funcionalidades Específicas
+
+#### Terminal Animado
+```javascript
+// Simula um terminal real com comandos
+const commands = [
+    'python main.py',
+    'pip install -r requirements.txt',
+    'python installer.py'
+];
+```
+
+#### Sistema de Notificações
+```javascript
+// Exemplo de uso
+dmsWebsite.showNotification('Download iniciado!', 'success');
+```
+
+#### Animações de Scroll
+```javascript
+// Animações baseadas em Intersection Observer
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('animate-fade-in-up');
+        }
+    });
+});
+```
+
+## 🎯 Otimizações
+
+### Performance
+- **CSS Otimizado**: Variáveis CSS para consistência
+- **JavaScript Modular**: Classes organizadas
+- **Lazy Loading**: Carregamento inteligente
+- **Minificação**: Arquivos otimizados
+
+### SEO
+- **Meta Tags**: Descrições e keywords
+- **Estrutura Semântica**: HTML5 semântico
+- **Open Graph**: Compartilhamento em redes sociais
+- **Schema.org**: Dados estruturados
+
+### Acessibilidade
+- **ARIA Labels**: Navegação por leitores de tela
+- **Contraste**: Cores com contraste adequado
+- **Foco**: Navegação por teclado
+- **Alt Text**: Imagens descritivas
+
+## 🔧 Personalização
+
+### Alterando Cores
 ```css
 :root {
-    --primary-color: #5865F2;
-    --secondary-color: #2C2F33;
-    --accent-color: #7289DA;
-    /* ... outras cores ... */
+    --primary-color: #sua-cor;
+    --accent-color: #sua-cor-destaque;
+    --bg-primary: #sua-cor-fundo;
 }
 ```
 
-### Fontes
-Para alterar as fontes, modifique o link do Google Fonts no `index.html` e atualize a variável `--font-family` no CSS.
+### Adicionando Seções
+```html
+<section id="nova-secao" class="nova-secao">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">Título da Seção</h2>
+            <p class="section-description">Descrição da seção</p>
+        </div>
+        <!-- Conteúdo da seção -->
+    </div>
+</section>
+```
 
-### Imagens
-Substitua as imagens na pasta `images/` mantendo os mesmos nomes de arquivo ou atualize os caminhos no HTML.
+### Modificando Animações
+```javascript
+// Adicione novas animações no CSS
+@keyframes novaAnimacao {
+    from { opacity: 0; transform: scale(0.8); }
+    to { opacity: 1; transform: scale(1); }
+}
+```
 
-## 📱 Responsividade
+## 📊 Métricas e Analytics
 
-O site é totalmente responsivo e se adapta a diferentes tamanhos de tela:
+### Eventos Rastreados
+- **Page Views**: Visualizações de página
+- **Clicks**: Cliques em botões e links
+- **Scroll Depth**: Profundidade de scroll
+- **Downloads**: Downloads de arquivos
+- **Form Submissions**: Envios de formulários
 
-- Desktop (> 1200px)
-- Tablet (768px - 1199px)
-- Mobile (< 767px)
+### Performance Metrics
+- **Load Time**: Tempo de carregamento
+- **Scroll Performance**: Performance do scroll
+- **Click Events**: Eventos de clique
+- **Error Tracking**: Rastreamento de erros
 
-## 🔧 Manutenção
+## 🚀 Deploy
 
-### Adicionar Novas Seções
-1. Crie a estrutura HTML na seção desejada
-2. Adicione os estilos CSS correspondentes
-3. Se necessário, adicione interatividade com JavaScript
+### GitHub Pages
+```bash
+# Configure o repositório para GitHub Pages
+# O site será disponível em: https://nyxdevidk.github.io/Discord-Multi-Tool/
+```
 
-### Atualizar Conteúdo
-1. Edite o texto no arquivo `index.html`
-2. Atualize as imagens na pasta `images/`
-3. Ajuste os estilos no `style.css` se necessário
+### Netlify
+```bash
+# Conecte o repositório ao Netlify
+# Deploy automático a cada push
+```
 
-## 📄 Licença
-
-Este projeto está sob a licença MIT. Veja o arquivo `LICENSE` para mais detalhes.
+### Vercel
+```bash
+# Conecte o repositório ao Vercel
+# Deploy com preview automático
+```
 
 ## 🤝 Contribuição
 
-Contribuições são bem-vindas! Por favor, leia o arquivo `CONTRIBUTING.md` para detalhes sobre nosso código de conduta e o processo para enviar pull requests.
+### Como Contribuir
+1. **Fork** o repositório
+2. **Crie** uma branch para sua feature
+3. **Faça** suas alterações
+4. **Teste** localmente
+5. **Commit** suas mudanças
+6. **Push** para sua branch
+7. **Abra** um Pull Request
+
+### Padrões de Código
+- **CSS**: Use variáveis CSS e BEM
+- **JavaScript**: Use ES6+ e classes
+- **HTML**: Use HTML5 semântico
+- **Comentários**: Documente funções complexas
+
+## 📝 Changelog
+
+### v2.0.0 (Janeiro 2025)
+- ✨ Redesign completo do site
+- 🎨 Sistema de design moderno
+- 📱 Responsividade total
+- 🚀 Performance otimizada
+- 🎯 UX/UI aprimorada
+- 📊 Analytics integrado
+- 🛡️ Error handling
+- 📈 Monitoramento de performance
+
+### v1.0.0 (Versão anterior)
+- Site básico inicial
+- Funcionalidades essenciais
 
 ## 📞 Suporte
 
-Para suporte, entre em contato através de:
+### Contato
+- **GitHub**: [Issues](https://github.com/NyxDevidk/Discord-Multi-Tool/issues)
+- **Discord**: Servidor oficial do DMS
+- **Email**: Contato direto
 
-- Discord: [Link do servidor]
-- Email: contato@discordtool.com
-- GitHub: [Issues do repositório] 
+### Recursos
+- **Documentação**: Guias detalhados
+- **FAQ**: Perguntas frequentes
+- **Tutoriais**: Vídeos e tutoriais
+- **Comunidade**: Fórum de discussão
+
+## 📄 Licença
+
+Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](../LICENSE) para mais detalhes.
+
+---
+
+**Desenvolvido com ❤️ por NYX DEV**
+
+*DMS - Discord Management Suite v2.0* 

@@ -1254,17 +1254,25 @@ class UpdateChecker:
             response = self.session.get(f"{self.github_api_url}/releases/latest")
             if response.status_code == 200:
                 latest_release = response.json()
-                latest_version = latest_release['tag_name'].replace('v', '')
+                latest_version = latest_release['tag_name']
                 
-                if self._compare_versions(latest_version, self.current_version) > 0:
-                    return {
-                        'available': True,
-                        'current_version': self.current_version,
-                        'latest_version': latest_version,
-                        'release_notes': latest_release.get('body', 'Sem notas de lançamento'),
-                        'download_url': latest_release.get('html_url'),
-                        'release_date': latest_release.get('published_at')
-                    }
+                # Remove prefixos comuns como 'v', 'version', etc.
+                latest_version = re.sub(r'^[vV]?(?:ersion)?\s*', '', latest_version)
+                
+                # Tenta comparar as versões
+                try:
+                    if self._compare_versions(latest_version, self.current_version) > 0:
+                        return {
+                            'available': True,
+                            'current_version': self.current_version,
+                            'latest_version': latest_version,
+                            'release_notes': latest_release.get('body', 'Sem notas de lançamento'),
+                            'download_url': latest_release.get('html_url'),
+                            'release_date': latest_release.get('published_at')
+                        }
+                except Exception as e:
+                    logging.error(f"Erro ao comparar versões: {str(e)}")
+                    return {'available': False, 'error': f'Erro na comparação de versões: {str(e)}'}
             
             return {'available': False}
             
@@ -1281,16 +1289,25 @@ class UpdateChecker:
                 changelog = []
                 
                 for release in releases:
-                    changelog.append({
-                        'version': release['tag_name'],
-                        'title': release['name'],
-                        'notes': release.get('body', 'Sem notas de lançamento'),
-                        'date': release['published_at'],
-                        'url': release['html_url']
-                    })
+                    try:
+                        # Limpa o nome da versão
+                        version = release['tag_name']
+                        version = re.sub(r'^[vV]?(?:ersion)?\s*', '', version)
+                        
+                        changelog.append({
+                            'version': version,
+                            'title': release.get('name', f'Versão {version}'),
+                            'notes': release.get('body', 'Sem notas de lançamento'),
+                            'date': release.get('published_at', 'Data não disponível'),
+                            'url': release.get('html_url', '')
+                        })
+                    except Exception as e:
+                        logging.error(f"Erro ao processar release: {str(e)}")
+                        continue
                 
                 return changelog
             else:
+                logging.error(f"Erro ao obter releases: Status {response.status_code}")
                 return []
                 
         except Exception as e:
@@ -1300,7 +1317,18 @@ class UpdateChecker:
     def _compare_versions(self, version1, version2):
         """Compara duas versões e retorna 1 se version1 > version2, -1 se version1 < version2, 0 se iguais"""
         def normalize(v):
-            return [int(x) for x in re.sub(r'(\.0+)*$', '', v).split(".")]
+            # Remove caracteres não numéricos e pontos, mantendo apenas números e pontos
+            v = re.sub(r'[^0-9.]', '', str(v))
+            # Remove pontos extras no final
+            v = re.sub(r'(\.0+)*$', '', v)
+            # Se a string ficou vazia, retorna [0]
+            if not v:
+                return [0]
+            # Converte para lista de inteiros
+            try:
+                return [int(x) for x in v.split(".") if x.isdigit()]
+            except (ValueError, AttributeError):
+                return [0]
         
         v1 = normalize(version1)
         v2 = normalize(version2)

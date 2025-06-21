@@ -3,156 +3,555 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DMS - Discord Management Suite</title>
+    <title>DMS - Discord Management Suite | NYX DEV</title>
+    <meta name="description" content="Ferramenta multifuncional para gerenciamento de contas do Discord com interface amigável e recursos avançados.">
+    <meta name="keywords" content="Discord, Management, Tool, Bot, Token, NYX DEV">
+    <meta name="author" content="NYX DEV">
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+    
+    <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+    <link rel="apple-touch-icon" href="images/logo.svg">
+    
+    <!-- Theme Colors -->
+    <meta name="theme-color" content="#5865f2">
+    <meta name="msapplication-TileColor" content="#5865f2">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://github.com/NyxDevidk/Discord-Multi-Tool">
+    <meta property="og:title" content="DMS - Discord Management Suite">
+    <meta property="og:description" content="Ferramenta multifuncional para gerenciamento de contas do Discord com interface amigável e recursos avançados.">
+    <meta property="og:image" content="images/logo.svg">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://github.com/NyxDevidk/Discord-Multi-Tool">
+    <meta property="twitter:title" content="DMS - Discord Management Suite">
+    <meta property="twitter:description" content="Ferramenta multifuncional para gerenciamento de contas do Discord com interface amigável e recursos avançados.">
+    <meta property="twitter:image" content="images/logo.svg">
+    
+    <!-- CSS -->
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="images/logo.svg" as="image">
+    <link rel="preload" href="css/style.css" as="style">
+    <link rel="preload" href="js/main.js" as="script">
 </head>
 <body>
-    <nav class="navbar">
-        <div class="container">
-            <div class="logo">
-                <img src="images/logo.svg" alt="DMS Logo" height="40">
-            </div>
-            <ul class="nav-links">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#features">Recursos</a></li>
-                <li><a href="#download">Download</a></li>
-                <li><a href="#contact">Contato</a></li>
-            </ul>
-            <div class="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </div>
-    </nav>
-
-    <section id="home" class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <h1>DMS</h1>
-                <p>Discord Management Suite - Uma ferramenta profissional para gerenciamento de contas do Discord com interface amigável e recursos avançados.</p>
-                <div class="hero-buttons">
-                    <a href="#download" class="btn btn-primary">Download</a>
-                    <a href="#features" class="btn btn-secondary">Saiba Mais</a>
+    <!-- Header -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <img src="images/logo.svg" alt="DMS Logo" class="logo">
+                    <span class="logo-text">DMS</span>
+                </div>
+                
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="#home" class="nav-link">Início</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#features" class="nav-link">Recursos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#download" class="nav-link">Download</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#docs" class="nav-link">Documentação</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#about" class="nav-link">Sobre</a>
+                    </li>
+                </ul>
+                
+                <div class="nav-toggle">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
                 </div>
             </div>
-            <div class="hero-image">
-                <img src="images/discord-tool-preview.png" alt="Discord Multi Tool Preview">
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1 class="hero-title">
+                        Discord Management Suite
+                        <span class="gradient-text">DMS</span>
+                    </h1>
+                    <p class="hero-description">
+                        A ferramenta definitiva para gerenciamento de contas do Discord. 
+                        Interface moderna, recursos avançados e segurança garantida.
+                    </p>
+                    <div class="hero-buttons">
+                        <a href="#download" class="btn btn-primary">
+                            <i class="fas fa-download"></i>
+                            Download Grátis
+                        </a>
+                        <a href="#features" class="btn btn-secondary">
+                            <i class="fas fa-play"></i>
+                            Ver Demo
+                        </a>
+                    </div>
+                    <div class="hero-stats">
+                        <div class="stat">
+                            <span class="stat-number">2.0</span>
+                            <span class="stat-label">Versão</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">15+</span>
+                            <span class="stat-label">Recursos</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">100%</span>
+                            <span class="stat-label">Gratuito</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="terminal-window">
+                        <div class="terminal-header">
+                            <div class="terminal-buttons">
+                                <span class="btn-close"></span>
+                                <span class="btn-minimize"></span>
+                                <span class="btn-maximize"></span>
+                            </div>
+                            <div class="terminal-title">DMS Terminal</div>
+                        </div>
+                        <div class="terminal-content">
+                            <div class="terminal-line">
+                                <span class="prompt">$</span>
+                                <span class="command">python main.py</span>
+                            </div>
+                            <div class="terminal-output">
+                                <div class="banner-line">╔══════════════════════════════════════════════════════════════╗</div>
+                                <div class="banner-line">║                    DMS v2.0 - NYX DEV                    ║</div>
+                                <div class="banner-line">║                    Discord Management Suite                          ║</div>
+                                <div class="banner-line">╚══════════════════════════════════════════════════════════════╝</div>
+                                <div class="menu-line">[1] Token Checker     [2] Token Info        [3] Token Joiner</div>
+                                <div class="menu-line">[4] Token Leaver      [5] Token Nuker       [6] Token Spammer</div>
+                                <div class="menu-line">[7] HypeSquad        [8] Bio Changer       [9] Avatar Changer</div>
+                                <div class="cursor">█</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
+    <!-- Features Section -->
     <section id="features" class="features">
         <div class="container">
-            <h2>Recursos Principais</h2>
+            <div class="section-header">
+                <h2 class="section-title">Recursos Principais</h2>
+                <p class="section-description">
+                    Descubra todas as funcionalidades que tornam o DMS a ferramenta mais completa para gerenciamento do Discord
+                </p>
+            </div>
+            
             <div class="features-grid">
                 <div class="feature-card">
-                    <i class="fas fa-key"></i>
-                    <h3>Gerenciamento de Tokens</h3>
-                    <p>Verificação, informações detalhadas, suporte a múltiplos tokens, backup automático e criptografia.</p>
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3 class="feature-title">Token Management</h3>
+                    <p class="feature-description">
+                        Verificação, validação e gerenciamento seguro de tokens do Discord com criptografia avançada.
+                    </p>
+                    <ul class="feature-list">
+                        <li>Verificação de validade</li>
+                        <li>Criptografia automática</li>
+                        <li>Backup seguro</li>
+                        <li>Múltiplos tokens</li>
+                    </ul>
                 </div>
+                
                 <div class="feature-card">
-                    <i class="fas fa-server"></i>
-                    <h3>Operações em Servidores</h3>
-                    <p>Entrar em servidores, sair, nuke, spam de mensagens e muito mais.</p>
+                    <div class="feature-icon">
+                        <i class="fas fa-server"></i>
+                    </div>
+                    <h3 class="feature-title">Server Operations</h3>
+                    <p class="feature-description">
+                        Operações completas em servidores: entrar, sair, nuke e spam com sistema de filas.
+                    </p>
+                    <ul class="feature-list">
+                        <li>Joiner automático</li>
+                        <li>Leaver em massa</li>
+                        <li>Nuke completo</li>
+                        <li>Spam controlado</li>
+                    </ul>
                 </div>
+                
                 <div class="feature-card">
-                    <i class="fas fa-user-edit"></i>
-                    <h3>Personalização de Perfil</h3>
-                    <p>Alterar HypeSquad House, modificar bio, trocar avatar e alterar username.</p>
+                    <div class="feature-icon">
+                        <i class="fas fa-user-edit"></i>
+                    </div>
+                    <h3 class="feature-title">Profile Customization</h3>
+                    <p class="feature-description">
+                        Personalização completa do perfil: bio, avatar, username e HypeSquad House.
+                    </p>
+                    <ul class="feature-list">
+                        <li>Bio Changer</li>
+                        <li>Avatar Changer</li>
+                        <li>Username Changer</li>
+                        <li>HypeSquad Changer</li>
+                    </ul>
                 </div>
+                
                 <div class="feature-card">
-                    <i class="fas fa-cogs"></i>
-                    <h3>Recursos Avançados</h3>
-                    <p>Sistema de filas, tratamento de erros, retry automático, logging e interface personalizável.</p>
+                    <div class="feature-icon">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <h3 class="feature-title">Advanced Features</h3>
+                    <p class="feature-description">
+                        Recursos avançados para usuários experientes com configurações personalizáveis.
+                    </p>
+                    <ul class="feature-list">
+                        <li>Sistema de proxies</li>
+                        <li>Filas de operações</li>
+                        <li>Logs detalhados</li>
+                        <li>Temas personalizáveis</li>
+                    </ul>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-download"></i>
+                    </div>
+                    <h3 class="feature-title">Auto Updates</h3>
+                    <p class="feature-description">
+                        Sistema de atualizações automáticas com verificação de novas versões.
+                    </p>
+                    <ul class="feature-list">
+                        <li>Verificação automática</li>
+                        <li>Download direto</li>
+                        <li>Changelog completo</li>
+                        <li>Instalação fácil</li>
+                    </ul>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <h3 class="feature-title">Security First</h3>
+                    <p class="feature-description">
+                        Segurança em primeiro lugar com proteção contra rate limits e validação rigorosa.
+                    </p>
+                    <ul class="feature-list">
+                        <li>Criptografia AES</li>
+                        <li>Rate limit protection</li>
+                        <li>Validação de entrada</li>
+                        <li>Logs seguros</li>
+                    </ul>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- Download Section -->
     <section id="download" class="download">
         <div class="container">
-            <h2>Download</h2>
-            <div class="download-content">
-                <div class="download-info">
-                    <h3>Requisitos do Sistema</h3>
+            <div class="section-header">
+                <h2 class="section-title">Download</h2>
+                <p class="section-description">
+                    Escolha a versão que melhor se adapta às suas necessidades
+                </p>
+            </div>
+            
+            <div class="download-options">
+                <div class="download-card">
+                    <div class="download-header">
+                        <i class="fas fa-rocket"></i>
+                        <h3>Instalador Completo</h3>
+                    </div>
+                    <p>Versão completa com atalhos automáticos e todas as funcionalidades</p>
                     <ul>
-                        <li><i class="fas fa-check"></i> Python 3.8 ou superior</li>
-                        <li><i class="fas fa-check"></i> Windows 10/11</li>
-                        <li><i class="fas fa-check"></i> Conexão com a internet</li>
+                        <li>✓ Instalação automática</li>
+                        <li>✓ Atalhos no sistema</li>
+                        <li>✓ Todas as dependências</li>
+                        <li>✓ Configuração automática</li>
                     </ul>
-                    <div class="download-buttons">
-                        <a href="#" class="btn btn-primary">
-                            <i class="fas fa-download"></i> Download
-                        </a>
-                        <a href="https://github.com/seu-usuario/discord-multi-tool" class="btn btn-secondary">
-                            <i class="fab fa-github"></i> GitHub
-                        </a>
-                    </div>
+                    <a href="#" class="btn btn-primary download-btn" data-version="full">
+                        <i class="fas fa-download"></i>
+                        Download Completo
+                    </a>
                 </div>
-                <div class="download-image">
-                    <img src="images/download-preview.png" alt="Download Preview">
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="contact" class="contact">
-        <div class="container">
-            <h2>Contato</h2>
-            <div class="contact-content">
-                <div class="contact-info">
-                    <div class="contact-item">
-                        <i class="fab fa-discord"></i>
-                        <h3>Discord</h3>
-                        <p>Entre em nosso servidor</p>
-                        <a href="#" class="btn btn-discord">Entrar</a>
+                
+                <div class="download-card featured">
+                    <div class="download-badge">Recomendado</div>
+                    <div class="download-header">
+                        <i class="fas fa-bolt"></i>
+                        <h3>Instalador Simplificado</h3>
                     </div>
-                    <div class="contact-item">
+                    <p>Versão rápida e confiável sem criação automática de atalhos</p>
+                    <ul>
+                        <li>✓ Instalação rápida</li>
+                        <li>✓ Sem problemas de atalhos</li>
+                        <li>✓ Mais confiável</li>
+                        <li>✓ Atalhos manuais</li>
+                    </ul>
+                    <a href="#" class="btn btn-primary download-btn" data-version="simple">
+                        <i class="fas fa-download"></i>
+                        Download Simplificado
+                    </a>
+                </div>
+                
+                <div class="download-card">
+                    <div class="download-header">
+                        <i class="fas fa-code"></i>
+                        <h3>Código Fonte</h3>
+                    </div>
+                    <p>Acesso completo ao código fonte no GitHub</p>
+                    <ul>
+                        <li>✓ Código aberto</li>
+                        <li>✓ Contribuições</li>
+                        <li>✓ Issues e PRs</li>
+                        <li>✓ Comunidade</li>
+                    </ul>
+                    <a href="https://github.com/NyxDevidk/Discord-Multi-Tool" class="btn btn-secondary download-btn" target="_blank">
                         <i class="fab fa-github"></i>
-                        <h3>GitHub</h3>
-                        <p>Contribua com o projeto</p>
-                        <a href="#" class="btn btn-github">Visitar</a>
+                        Ver no GitHub
+                    </a>
+                </div>
+            </div>
+            
+            <div class="system-requirements">
+                <h3>Requisitos do Sistema</h3>
+                <div class="requirements-grid">
+                    <div class="requirement">
+                        <i class="fab fa-python"></i>
+                        <span>Python 3.8+</span>
                     </div>
-                    <div class="contact-item">
-                        <i class="fas fa-envelope"></i>
-                        <h3>Email</h3>
-                        <p>Entre em contato</p>
-                        <a href="mailto:contato@discordtool.com" class="btn btn-email">Enviar</a>
+                    <div class="requirement">
+                        <i class="fab fa-windows"></i>
+                        <span>Windows 10/11</span>
+                    </div>
+                    <div class="requirement">
+                        <i class="fab fa-linux"></i>
+                        <span>Linux</span>
+                    </div>
+                    <div class="requirement">
+                        <i class="fas fa-memory"></i>
+                        <span>2GB RAM</span>
+                    </div>
+                    <div class="requirement">
+                        <i class="fas fa-hdd"></i>
+                        <span>100MB Espaço</span>
+                    </div>
+                    <div class="requirement">
+                        <i class="fas fa-wifi"></i>
+                        <span>Conexão Internet</span>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- Documentation Section -->
+    <section id="docs" class="documentation">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Documentação</h2>
+                <p class="section-description">
+                    Aprenda a usar todas as funcionalidades do DMS
+                </p>
+            </div>
+            
+            <div class="docs-grid">
+                <div class="docs-card">
+                    <div class="docs-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <h3>Guia de Instalação</h3>
+                    <p>Passo a passo para instalar e configurar o DMS</p>
+                    <a href="#" class="docs-link">Ler Guia <i class="fas fa-arrow-right"></i></a>
+                </div>
+                
+                <div class="docs-card">
+                    <div class="docs-icon">
+                        <i class="fas fa-cog"></i>
+                    </div>
+                    <h3>Configuração</h3>
+                    <p>Como configurar tokens, proxies e outras opções</p>
+                    <a href="#" class="docs-link">Ver Configurações <i class="fas fa-arrow-right"></i></a>
+                </div>
+                
+                <div class="docs-card">
+                    <div class="docs-icon">
+                        <i class="fas fa-tools"></i>
+                    </div>
+                    <h3>Funcionalidades</h3>
+                    <p>Explicação detalhada de cada funcionalidade</p>
+                    <a href="#" class="docs-link">Ver Funcionalidades <i class="fas fa-arrow-right"></i></a>
+                </div>
+                
+                <div class="docs-card">
+                    <div class="docs-icon">
+                        <i class="fas fa-question-circle"></i>
+                    </div>
+                    <h3>FAQ</h3>
+                    <p>Perguntas frequentes e soluções para problemas</p>
+                    <a href="#" class="docs-link">Ver FAQ <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2>Sobre o DMS</h2>
+                    <p>
+                        O Discord Management Suite (DMS) é uma ferramenta multifuncional desenvolvida para facilitar 
+                        o gerenciamento de contas do Discord. Com interface moderna e recursos avançados, o DMS 
+                        oferece uma experiência completa para usuários que precisam gerenciar múltiplas contas.
+                    </p>
+                    <p>
+                        Desenvolvido com foco em segurança, performance e usabilidade, o DMS utiliza as melhores 
+                        práticas de programação e oferece suporte completo para todas as funcionalidades do Discord.
+                    </p>
+                    
+                    <div class="developer-info">
+                        <h3>Desenvolvido por</h3>
+                        <div class="developer">
+                            <div class="developer-avatar">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div class="developer-details">
+                                <h4>NYX DEV</h4>
+                                <p>Desenvolvedor Full-Stack</p>
+                                <div class="developer-social">
+                                    <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                                    <a href="#" class="social-link"><i class="fab fa-discord"></i></a>
+                                    <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="about-stats">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <div class="stat-info">
+                            <span class="stat-number">10K+</span>
+                            <span class="stat-label">Linhas de Código</span>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="stat-info">
+                            <span class="stat-number">1K+</span>
+                            <span class="stat-label">Usuários</span>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <div class="stat-info">
+                            <span class="stat-number">100+</span>
+                            <span class="stat-label">Stars GitHub</span>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-download"></i>
+                        </div>
+                        <div class="stat-info">
+                            <span class="stat-number">5K+</span>
+                            <span class="stat-label">Downloads</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
-                <div class="footer-logo">
-                    <i class="fab fa-discord"></i>
-                    <span>Discord Multi Tool</span>
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <img src="images/logo.svg" alt="DMS Logo" class="logo">
+                        <span class="logo-text">DMS</span>
+                    </div>
+                    <p>
+                        Discord Management Suite - A ferramenta definitiva para gerenciamento de contas do Discord.
+                    </p>
+                    <div class="footer-social">
+                        <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-discord"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                    </div>
                 </div>
-                <div class="footer-links">
-                    <a href="#home">Home</a>
-                    <a href="#features">Recursos</a>
-                    <a href="#download">Download</a>
-                    <a href="#contact">Contato</a>
+                
+                <div class="footer-section">
+                    <h4>Produto</h4>
+                    <ul>
+                        <li><a href="#features">Recursos</a></li>
+                        <li><a href="#download">Download</a></li>
+                        <li><a href="#docs">Documentação</a></li>
+                        <li><a href="#">Changelog</a></li>
+                    </ul>
                 </div>
-                <div class="footer-social">
-                    <a href="#"><i class="fab fa-discord"></i></a>
-                    <a href="#"><i class="fab fa-github"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
+                
+                <div class="footer-section">
+                    <h4>Suporte</h4>
+                    <ul>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Issues</a></li>
+                        <li><a href="#">Discord</a></li>
+                        <li><a href="#">Contato</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="#">Termos de Uso</a></li>
+                        <li><a href="#">Privacidade</a></li>
+                        <li><a href="#">Licença</a></li>
+                        <li><a href="#">Responsabilidade</a></li>
+                    </ul>
                 </div>
             </div>
+            
             <div class="footer-bottom">
-                <p>&copy; 2024 Discord Multi Tool. Todos os direitos reservados.</p>
+                <p>&copy; 2025 DMS - Discord Management Suite. Desenvolvido por <strong>NYX DEV</strong>.</p>
+                <p>Versão 2.0 | Última atualização: Janeiro 2025</p>
             </div>
         </div>
     </footer>
 
+    <!-- Scripts -->
     <script src="js/main.js"></script>
 </body>
 </html> 
