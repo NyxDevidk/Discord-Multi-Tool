@@ -1,0 +1,27 @@
+# Configurações do Sistema de Atualizações
+update_settings:
+  # Repositório do GitHub (substitua pelo seu repositório real)
+  github_repo: "nyxdev/discord-management-suite"
+  
+  # Versão atual do programa
+  current_version: "2.0"
+  
+  # Configurações de verificação
+  auto_check: true
+  check_interval: 3600  # em segundos (1 hora)
+  
+  # Configurações de download
+  download_path: "./downloads"
+  backup_before_update: true
+  
+  # Configurações de notificação
+  show_notifications: true
+  notify_on_startup: true
+  
+  # Configurações de changelog
+  changelog_limit: 10
+  show_preview: true
+  
+  # Configurações de proxy para downloads
+  use_proxy_for_downloads: false
+  download_timeout: 300  # 5 minutos 

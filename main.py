@@ -25,6 +25,7 @@ import aiohttp
 import asyncio
 from bs4 import BeautifulSoup
 import sys
+import re
 
 # Inicializa o colorama
 init()
@@ -346,15 +347,9 @@ class DMS:
         """Valida se o token está no formato correto e é válido"""
         if not token:
             return False, "Token não pode estar vazio"
-            
-        # Verifica se o token tem o formato correto
-        if not token.startswith(('MT', 'NT', 'OD')):
-            return False, "Formato de token inválido"
-            
         # Verifica se o token tem o tamanho correto (tokens do Discord geralmente têm entre 59 e 140 caracteres)
         if len(token) < 59 or len(token) > 140:
             return False, "Tamanho do token inválido"
-            
         # Tenta fazer uma requisição para validar o token
         try:
             headers = {
@@ -376,8 +371,14 @@ class DMS:
         self.token_manager = TokenManager()
         self.proxy_manager = ProxyManager()
         self.theme_manager = ThemeManager()
+        self.update_checker = UpdateChecker()
         self.token = None
         self.operation_queue = OperationQueue()
+
+        # Desabilitar animações e barras de progresso para mais velocidade
+        self.config.config['interface']['show_animations'] = False
+        self.config.config['interface']['show_progress'] = False
+        self.config.save_config(self.config.config)
         
         # Configuração do session com retry
         self.session = requests.Session()
@@ -467,38 +468,41 @@ class DMS:
         primary = getattr(Fore, colors.get('primary', 'cyan').upper())
         success = getattr(Fore, colors.get('success', 'green').upper())
         warning = getattr(Fore, colors.get('warning', 'yellow').upper())
-        
-        banner = f"""
-{primary}╔════════════════════════════════════════════════════════════════════════════╗
-║                                                                      ║
-║  {success}██╗  ██╗███╗   ██╗██╗  ██╗    ██████╗ ███████╗██╗   ██╗{primary}  ║
-║  {success}██║  ██║████╗  ██║╚██╗██╔╝    ██╔══██╗██╔════╝██║   ██║{primary}  ║
-║  {success}███████║██╔██╗ ██║ ╚███╔╝     ██║  ██║█████╗  ██║   ██║{primary}  ║
-║  {success}██╔══██║██║╚██╗██║ ██╔██╗     ██║  ██║██╔══╝  ╚██╗ ██╔╝{primary}  ║
-║  {success}██║  ██║██║ ╚████║██╔╝ ██╗    ██████╔╝███████╗ ╚████╔╝ {primary}  ║
-║  {success}╚═╝  ╚═╝╚═╝  ╚═══╝╚═╝  ╚═╝    ╚═════╝ ╚══════╝  ╚═══╝  {primary}  ║
-║                                                                      ║
-║  {warning}╔════════════════════════════════════════════════════════════════════╗{primary}  ║
-║  {warning}║                      Discord Management Suite                      ║{primary}  ║
-║  {warning}║                           Versão 2.0                              ║{primary}  ║
-║  {warning}╚════════════════════════════════════════════════════════════════════╝{primary}  ║
-║                                                                      ║
-║  {success}╔════════════════════════════════════════════════════════════════════╗{primary}  ║
-║  {success}║                         Status do Sistema                          ║{primary}  ║
-║  {success}║                                                                  ║{primary}  ║
-║  {success}║  Token: {'✓' if self.token else '✗'}  |  Proxies: {'✓' if self.config.get('requests.use_proxies') else '✗'}  |  Status: Online  ║{primary}  ║
-║  {success}║                                                                  ║{primary}  ║
-║  {success}║  Desenvolvido por: Nyx Dev                                      ║{primary}  ║
-║  {success}║  Data: {datetime.now().strftime('%d/%m/%Y %H:%M:%S')}                    ║{primary}  ║
-║  {success}╚════════════════════════════════════════════════════════════════════╝{primary}  ║
-║                                                                      ║
-╚════════════════════════════════════════════════════════════════════════════╝{Fore.RESET}
-        """
-        if self.config.get('interface.show_animations'):
-            print_banner_animated(banner)
-        else:
-            print(banner)
+        # Não usar animação
+        print(self._get_banner(primary, success, warning))
         self.logger.info("Banner exibido")
+
+    def _get_banner(self, primary, success, warning):
+        from datetime import datetime
+        width = 76
+        def pad(text):
+            return f"║ {text.ljust(width-4)} ║"
+        lines = [
+            "",
+            f"{success}███╗   ██╗██╗   ██╗██╗  ██╗     ██████╗ ███████╗██╗   ██╗{primary}",
+            f"{success}████╗  ██║██║   ██║╚██╗██╔╝    ██╔══██╗██╔════╝██║   ██║{primary}",
+            f"{success}██╔██╗ ██║██║   ██║ ╚███╔╝     ██║  ██║█████╗  ██║   ██║{primary}",
+            f"{success}██║╚██╗██║██║   ██║ ██╔██╗     ██║  ██║██╔══╝  ╚██╗ ██╔╝{primary}",
+            f"{success}██║ ╚████║╚██████╔╝██╔╝ ██╗    ██████╔╝███████╗ ╚████╔╝ {primary}",
+            f"{success}╚═╝  ╚═══╝ ╚═════╝ ╚═╝  ╚═╝    ╚═════╝ ╚══════╝  ╚═══╝  {primary}",
+            "",
+            f"{warning}{'═'*width}{primary}",
+            f"{warning}{' Discord Management Suite '.center(width, '═')}{primary}",
+            f"{warning}{' Versão 2.0 '.center(width, '═')}{primary}",
+            f"{warning}{'═'*width}{primary}",
+            "",
+            f"{success}{'═'*width}{primary}",
+            f"{success}{' Status do Sistema '.center(width, '═')}{primary}",
+            f"{success}{'═'*width}{primary}",
+            pad(f"Token: {'✓' if self.token else '✗'}  |  Proxies: {'✓' if self.config.get('requests.use_proxies') else '✗'}  |  Status: Online"),
+            pad(f"Desenvolvido por: NYX DEV"),
+            pad(f"Data: {datetime.now().strftime('%d/%m/%Y %H:%M:%S')}") ,
+            f"{success}{'═'*width}{primary}",
+            ""
+        ]
+        top = f"{primary}╔{'═'*width}╗"
+        bottom = f"{primary}╚{'═'*width}╝{Fore.RESET}"
+        return '\n'.join([top]+lines+[bottom])
 
     def print_menu(self):
         theme = self.theme_manager.get_theme()
@@ -507,44 +511,51 @@ class DMS:
         success = getattr(Fore, colors.get('success', 'green').upper())
         info = getattr(Fore, colors.get('info', 'magenta').upper())
         warning = getattr(Fore, colors.get('warning', 'yellow').upper())
-        
-        menu = f"""
-{primary}╔════════════════════════════════════════════════════════════════════════════╗
-║                            Menu Principal                            ║
-╚════════════════════════════════════════════════════════════════════════════╝{Fore.RESET}
-
-{success}[1]  Token Checker     {info}Verifica a validade do token
-{success}[2]  Token Info        {info}Mostra informações do token
-{success}[3]  Token Joiner      {info}Entra em servidores
-{success}[4]  Token Leaver      {info}Sai de servidores
-{success}[5]  Token Nuker       {info}Nuke em servidores
-{success}[6]  Token Spammer     {info}Envia mensagens em massa
-
-{success}[7]  HypeSquad        {info}Altera HypeSquad House
-{success}[8]  Bio Changer      {info}Altera a bio
-{success}[9]  Avatar Changer   {info}Altera o avatar
-{success}[10] Username Changer {info}Altera o username
-
-{success}[11] Alterar Token    {info}Muda o token atual
-{success}[12] Limpar Token     {info}Remove o token salvo
-{success}[13] Backup Token     {info}Cria backup do token
-{success}[14] Configurações    {info}Configura o programa
-
-{success}[0]  Sair            {info}Encerra o programa{Fore.RESET}
-
-{primary}╔════════════════════════════════════════════════════════════════════════════╗
-║                            Informações                              ║
-║                                                                      ║
-║  {success}Token Atual: {self.token[:20] + '...' if self.token else 'Nenhum'}{primary}                                    ║
-║  {warning}Proxies: {'Ativos' if self.config.get('requests.use_proxies') else 'Inativos'}{primary}                                               ║
-║  {info}Última Atualização: {datetime.now().strftime('%H:%M:%S')}{primary}                                    ║
-╚════════════════════════════════════════════════════════════════════════════╝{Fore.RESET}
-        """
-        if self.config.get('interface.show_animations'):
-            print_menu_animated(menu)
-        else:
-            print(menu)
+        # Não usar animação
+        print(self._get_menu(primary, success, info, warning))
         self.logger.info("Menu exibido")
+
+    def _get_menu(self, primary, success, info, warning):
+        from datetime import datetime
+        width = 76
+        def pad(text):
+            return f"║ {text.ljust(width-4)} ║"
+        menu_lines = [
+            pad("Menu Principal"),
+            f"{primary}╚{'═'*width}╝{Fore.RESET}",
+            "",
+            pad(f"{success}[1]  Token Checker     {info}Verifica a validade do token"),
+            pad(f"{success}[2]  Token Info        {info}Mostra informações do token"),
+            pad(f"{success}[3]  Token Joiner      {info}Entra em servidores"),
+            pad(f"{success}[4]  Token Leaver      {info}Sai de servidores"),
+            pad(f"{success}[5]  Token Nuker       {info}Nuke em servidores"),
+            pad(f"{success}[6]  Token Spammer     {info}Envia mensagens em massa"),
+            "",
+            pad(f"{success}[7]  HypeSquad        {info}Altera HypeSquad House"),
+            pad(f"{success}[8]  Bio Changer      {info}Altera a bio"),
+            pad(f"{success}[9]  Avatar Changer   {info}Altera o avatar"),
+            pad(f"{success}[10] Username Changer {info}Altera o username"),
+            "",
+            pad(f"{success}[11] Alterar Token    {info}Muda o token atual"),
+            pad(f"{success}[12] Limpar Token     {info}Remove o token salvo"),
+            pad(f"{success}[13] Backup Token     {info}Cria backup do token"),
+            pad(f"{success}[14] Configurações    {info}Configura o programa"),
+            "",
+            pad(f"{success}[15] Verificar Updates{info}Verifica atualizações"),
+            pad(f"{success}[16] Changelog        {info}Mostra histórico de versões"),
+            "",
+            pad(f"{success}[0]  Sair            {info}Encerra o programa{Fore.RESET}"),
+            "",
+            f"{primary}╔{'═'*width}╗",
+            pad("Informações"),
+            pad(f"Token Atual: {self.token[:20] + '...' if self.token else 'Nenhum'}"),
+            pad(f"Proxies: {'Ativos' if self.config.get('requests.use_proxies') else 'Inativos'}"),
+            pad(f"Versão: {self.update_checker.current_version}"),
+            pad(f"Última Atualização: {datetime.now().strftime('%H:%M:%S')}"),
+            f"{primary}╚{'═'*width}╝{Fore.RESET}"
+        ]
+        top = f"{primary}╔{'═'*width}╗"
+        return '\n'.join([top]+menu_lines)
 
     def show_config_menu(self):
         """Mostra o menu de configurações"""
@@ -1012,6 +1023,84 @@ class DMS:
             self.logger.error(f"Erro ao criar backup: {str(e)}", exc_info=True)
             return False
 
+    def check_updates(self):
+        """Verifica se há atualizações disponíveis"""
+        print(f"{Fore.CYAN}[*] Verificando atualizações...{Fore.RESET}")
+        self.logger.info("Verificando atualizações")
+        
+        try:
+            update_info = self.update_checker.check_for_updates()
+            
+            if update_info.get('available'):
+                print(f"\n{Fore.GREEN}=== NOVA ATUALIZAÇÃO DISPONÍVEL ==={Fore.RESET}")
+                print(f"{Fore.YELLOW}Versão Atual: {update_info['current_version']}{Fore.RESET}")
+                print(f"{Fore.GREEN}Nova Versão: {update_info['latest_version']}{Fore.RESET}")
+                print(f"{Fore.CYAN}Data de Lançamento: {update_info['release_date']}{Fore.RESET}")
+                print(f"\n{Fore.MAGENTA}=== NOTAS DE LANÇAMENTO ==={Fore.RESET}")
+                print(update_info['release_notes'])
+                
+                download = input(f"\n{Fore.YELLOW}Deseja baixar a atualização? (s/n): {Fore.RESET}")
+                if download.lower() == 's':
+                    self.update_checker.download_update(update_info['download_url'])
+            else:
+                if update_info.get('error'):
+                    print(f"{Fore.RED}[-] Erro ao verificar atualizações: {update_info['error']}{Fore.RESET}")
+                else:
+                    print(f"{Fore.GREEN}[+] Você está usando a versão mais recente!{Fore.RESET}")
+                    
+        except Exception as e:
+            print(f"{Fore.RED}[-] Erro ao verificar atualizações: {str(e)}{Fore.RESET}")
+            self.logger.error(f"Erro ao verificar atualizações: {str(e)}", exc_info=True)
+
+    def show_changelog(self):
+        """Mostra o changelog das últimas versões"""
+        print(f"{Fore.CYAN}[*] Carregando changelog...{Fore.RESET}")
+        self.logger.info("Carregando changelog")
+        
+        try:
+            changelog = self.update_checker.get_changelog(limit=5)
+            
+            if changelog:
+                print(f"\n{Fore.GREEN}=== CHANGELOG ==={Fore.RESET}")
+                for release in changelog:
+                    print(f"\n{Fore.YELLOW}Versão {release['version']} - {release['title']}{Fore.RESET}")
+                    print(f"{Fore.CYAN}Data: {release['date']}{Fore.RESET}")
+                    print(f"{Fore.MAGENTA}Notas:{Fore.RESET}")
+                    
+                    # Formata as notas de lançamento
+                    notes = release['notes']
+                    if len(notes) > 200:
+                        notes = notes[:200] + "..."
+                    
+                    # Quebra em linhas para melhor visualização
+                    lines = notes.split('\n')
+                    for line in lines[:5]:  # Mostra apenas as primeiras 5 linhas
+                        if line.strip():
+                            print(f"  {line.strip()}")
+                    
+                    if len(lines) > 5:
+                        print(f"  ... (mais {len(lines) - 5} linhas)")
+                    
+                    print(f"{Fore.BLUE}URL: {release['url']}{Fore.RESET}")
+                    print(f"{Fore.WHITE}{'─' * 50}{Fore.RESET}")
+            else:
+                print(f"{Fore.RED}[-] Não foi possível carregar o changelog{Fore.RESET}")
+                
+        except Exception as e:
+            print(f"{Fore.RED}[-] Erro ao carregar changelog: {str(e)}{Fore.RESET}")
+            self.logger.error(f"Erro ao carregar changelog: {str(e)}", exc_info=True)
+
+    def auto_check_updates(self):
+        """Verifica automaticamente por atualizações na inicialização"""
+        try:
+            update_info = self.update_checker.check_for_updates()
+            if update_info.get('available'):
+                print(f"\n{Fore.YELLOW}[!] Nova versão disponível: {update_info['latest_version']}{Fore.RESET}")
+                print(f"{Fore.CYAN}[*] Use a opção 'Verificar Atualizações' no menu para mais detalhes{Fore.RESET}")
+                self.logger.info(f"Nova versão disponível: {update_info['latest_version']}")
+        except Exception as e:
+            self.logger.error(f"Erro na verificação automática de atualizações: {str(e)}")
+
     def make_request(self, method, url, **kwargs):
         """Método centralizado para fazer requisições com tratamento de erros e proxies"""
         try:
@@ -1050,6 +1139,12 @@ class DMS:
             if self.config.get('interface.show_animations'):
                 print_loading("Iniciando", 1)
             self.print_banner()
+            
+            # Verificação automática de atualizações na primeira execução
+            if not hasattr(self, '_update_checked'):
+                self.auto_check_updates()
+                self._update_checked = True
+            
             self.print_menu()
             choice = input(f"{Fore.YELLOW}Escolha uma opção: {Fore.RESET}")
             
@@ -1081,6 +1176,10 @@ class DMS:
                 self.backup_token()
             elif choice == "14":
                 self.show_config_menu()
+            elif choice == "15":
+                self.check_updates()
+            elif choice == "16":
+                self.show_changelog()
             elif choice == "0":
                 if self.config.get('interface.show_animations'):
                     print_rainbow("Obrigado por usar o Discord Multi Tool!")
@@ -1140,6 +1239,94 @@ def print_menu_animated(menu):
             print_slow(line, delay=0.005)
         else:
             print()
+
+class UpdateChecker:
+    def __init__(self):
+        self.current_version = "2.0"
+        self.github_repo = "nyxdev/discord-management-suite"  # Substitua pelo seu repositório
+        self.github_api_url = f"https://api.github.com/repos/{self.github_repo}"
+        self.session = requests.Session()
+        
+    def check_for_updates(self):
+        """Verifica se há atualizações disponíveis"""
+        try:
+            # Busca a última release
+            response = self.session.get(f"{self.github_api_url}/releases/latest")
+            if response.status_code == 200:
+                latest_release = response.json()
+                latest_version = latest_release['tag_name'].replace('v', '')
+                
+                if self._compare_versions(latest_version, self.current_version) > 0:
+                    return {
+                        'available': True,
+                        'current_version': self.current_version,
+                        'latest_version': latest_version,
+                        'release_notes': latest_release.get('body', 'Sem notas de lançamento'),
+                        'download_url': latest_release.get('html_url'),
+                        'release_date': latest_release.get('published_at')
+                    }
+            
+            return {'available': False}
+            
+        except Exception as e:
+            logging.error(f"Erro ao verificar atualizações: {str(e)}")
+            return {'available': False, 'error': str(e)}
+    
+    def get_changelog(self, limit=10):
+        """Obtém o changelog das últimas releases"""
+        try:
+            response = self.session.get(f"{self.github_api_url}/releases")
+            if response.status_code == 200:
+                releases = response.json()[:limit]
+                changelog = []
+                
+                for release in releases:
+                    changelog.append({
+                        'version': release['tag_name'],
+                        'title': release['name'],
+                        'notes': release.get('body', 'Sem notas de lançamento'),
+                        'date': release['published_at'],
+                        'url': release['html_url']
+                    })
+                
+                return changelog
+            else:
+                return []
+                
+        except Exception as e:
+            logging.error(f"Erro ao obter changelog: {str(e)}")
+            return []
+    
+    def _compare_versions(self, version1, version2):
+        """Compara duas versões e retorna 1 se version1 > version2, -1 se version1 < version2, 0 se iguais"""
+        def normalize(v):
+            return [int(x) for x in re.sub(r'(\.0+)*$', '', v).split(".")]
+        
+        v1 = normalize(version1)
+        v2 = normalize(version2)
+        
+        for i in range(max(len(v1), len(v2))):
+            n1 = v1[i] if i < len(v1) else 0
+            n2 = v2[i] if i < len(v2) else 0
+            if n1 > n2:
+                return 1
+            elif n1 < n2:
+                return -1
+        return 0
+    
+    def download_update(self, download_url):
+        """Baixa a atualização (simulado - você pode implementar o download real)"""
+        try:
+            print(f"{Fore.CYAN}[*] Baixando atualização...{Fore.RESET}")
+            # Aqui você pode implementar o download real do arquivo
+            # Por enquanto, apenas simula o download
+            time.sleep(2)
+            print(f"{Fore.GREEN}[+] Atualização baixada com sucesso!{Fore.RESET}")
+            print(f"{Fore.YELLOW}[!] Reinicie o programa para aplicar as atualizações.{Fore.RESET}")
+            return True
+        except Exception as e:
+            print(f"{Fore.RED}[-] Erro ao baixar atualização: {str(e)}{Fore.RESET}")
+            return False
 
 if __name__ == "__main__":
     tool = DMS()
