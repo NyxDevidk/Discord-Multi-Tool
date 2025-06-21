@@ -1243,7 +1243,7 @@ def print_menu_animated(menu):
 class UpdateChecker:
     def __init__(self):
         self.current_version = "2.0"
-        self.github_repo = "nyxdev/discord-management-suite"  # Substitua pelo seu repositório
+        self.github_repo = "NyxDevidk/Discord-Multi-Tool"  # Substitua pelo seu repositório
         self.github_api_url = f"https://api.github.com/repos/{self.github_repo}"
         self.session = requests.Session()
         
